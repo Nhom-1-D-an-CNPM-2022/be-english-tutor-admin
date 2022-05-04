@@ -1,0 +1,16 @@
+{
+	"db_host": "",
+	"google": {
+		"clientID"     : "",
+		"clientSecret" : ""
+	},
+	"session" : {
+		"cookieKey" : "",
+		"maxAge": 86400000,
+		"__comment__" : "MaxAge is 60 * 60 * 1000 * 24 = 86400000 = 1 day"
+	},
+	"facebook": {
+		"clientID"     : "",
+		"clientSecret" : ""
+	}
+}

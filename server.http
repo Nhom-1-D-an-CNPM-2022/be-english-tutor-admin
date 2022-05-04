@@ -1,0 +1,82 @@
+###
+GET http://localhost:5000/api/user/get-info?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRFVzZXIiOjYsIkZpcnN0TmFtZSI6bnVsbCwiTGFzdE5hbWUiOm51bGwsIkVtYWlsIjoibmd1eWVuaGFhbmhraWVtQGdtYWlsLmNvbSIsIkRhdGVPZkJpcnRoIjpudWxsLCJHZW5kZXIiOm51bGwsIlR5cGVPZlVzZXIiOjAsIkFjdGl2ZSI6MSwiaWF0IjoxNjM4NjA5MTM3LCJleHAiOjE2Mzg2MDk0Mzd9.3hThaZW3FuZ-BVyf662ikNlywk6aNN5jihmQlUA96jU
+
+###
+PATCH http://localhost:5000/api/user/update-info
+content-Type: application/json
+
+{
+    "key": {
+        "IDUser": 14
+    },
+    "user": {
+        "FirstName": "Nguyen Ha Anh",
+        "LastName": "Kiem",
+        "PhoneNumber": "0123456789",
+        "DateOfBirth": "2000-01-07",
+        "Gender": "Nam",
+        "Vip": "abcd",
+        "Password": "123456",
+        "Email": "nguyenhaanhkiem@gmail.com"
+    }
+}
+
+###
+POST http://localhost:5000/api/user/add-information-vat
+Content-Type: application/json
+
+{
+    "Information": {
+        "IDUser": 14,
+        "Name": "Nguyen Ha Anh Kiem",
+        "CompanyName": "Nhom03",
+        "CompanyAddress": "123",
+        "CompanyCode": "abcd",
+        "CompanyEmail": "a@gmail.com"
+    }
+}
+
+###
+POST http://localhost:5000/api/user/add-user-address
+Content-Type: application/json
+
+{
+    "Address": {
+        "IDUser": 14,
+        "FirstName": "Nguyen Ha Anh",
+        "LastName": "Kiem",
+        "Phone": "0123456789",
+        "Address": "abc",
+        "Nation": "VN",
+        "City": "BP",
+        "District": "DA",
+        "ZipCode": "123",
+        "PaymentAddress": 1,
+        "DeliveryAddress": 1
+    }
+}
+
+###
+PATCH  http://localhost:5000/api/user/update-user-address
+Content-Type: application/json
+
+{
+    "key": {
+        "IDUser": 14
+    },
+    "Address": {
+        "FirstName": "Nguyen Ha Anh",
+        "LastName": "Kiem",
+        "Phone": "0123456789",
+        "Address": "abc",
+        "Nation": "VN",
+        "City": "BP",
+        "District": "DA",
+        "ZipCode": "123",
+        "PaymentAddress": 0,
+        "DeliveryAddress": 1
+    }
+}
+
+###
+GET http://localhost:5000/api/order/all
