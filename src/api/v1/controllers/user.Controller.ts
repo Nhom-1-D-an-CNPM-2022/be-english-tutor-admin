@@ -24,6 +24,8 @@ class UserController {
 		const email = String(query.email);
 		const password = String(query.pass);
 
+		console.log(email, password);
+
 		const pass = await userService.getPassword(email);
 		const ret = bcrypt.compareSync(password, pass.Password);
 
