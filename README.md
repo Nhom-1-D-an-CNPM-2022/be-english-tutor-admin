@@ -1,5 +1,5 @@
 # BE-QLDAPM
-Dự án phát triển website fahasa
+Dự án phát triển website cambly
 ### Cách build resources:
 ```
 Bước 1: Cài đặt Visual Studio Code và MySQL Workbench 8.0 CE

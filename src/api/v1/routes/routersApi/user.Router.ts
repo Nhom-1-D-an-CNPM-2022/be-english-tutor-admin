@@ -3,10 +3,7 @@ import { Router, Request, Response } from 'express';
 const userRouter = Router();
 
 // Middleware
-import {
-	authenTokenMiddleware,
-	authenticateAdminMiddleware,
-} from '../../middlewares/authenToken.Middleware';
+import { authenTokenMiddleware } from '../../middlewares/authenToken.Middleware';
 
 // Controller
 import { userController } from './../../controllers/user.Controller';
@@ -15,6 +12,8 @@ import { userController } from './../../controllers/user.Controller';
 
 //--------------------------------------------GET------------------------------------------
 userRouter.get('/login', userController.login);
+userRouter.get('/register', userController.register);
+userRouter.get('/get-info', authenTokenMiddleware, userController.getInfo);
 
 //--------------------------------------------POST-----------------------------------------
 

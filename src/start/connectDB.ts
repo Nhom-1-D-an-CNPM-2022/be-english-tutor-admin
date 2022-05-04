@@ -11,17 +11,17 @@ const pool = mysql.createPool({
 	connectionLimit: 50,
 });
 
-// pool.getConnection(function(err :any,connection :any){
-// 	if (err) {
-// 	  console.log(err)
-// 	  throw err;
-// 	}   
+pool.getConnection(function(err :any,connection :any){
+	if (err) {
+	  console.log('ALo', err)
+	  throw err;
+	}   
 	
-// 	connection.on('error', function(err:any) {      
-// 		  throw err;
-// 		  return;     
-// 	});
-// });
+	connection.on('error', function(err:any) {      
+		  throw err;
+		  return;     
+	});
+});
 
 const pool_query = util.promisify(pool.query).bind(pool);
 

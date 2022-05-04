@@ -5,7 +5,7 @@ class UserModel {
 	// Get Data
 	async getUserByEmail(Email: string) {
 		const rows = await database.load(
-			`select IDUser, FirstName, LastName, Email, DateOfBirth, Gender, TypeOfUser, Active, Vip, PhoneNumber from ${TBL_USER} where Email = "${Email}"`
+			`select id, Email, Name, Image from ${TBL_USER} where Email = "${Email}"`
 		);
 
 		if (rows.length === 0) return null;
