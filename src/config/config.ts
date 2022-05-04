@@ -14,15 +14,9 @@ const MYSQL = {
     pass: MYSQL_PASS,
     database: MYSQL_DATABASE,
 };
-const CLOUDINARY ={ 
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-};
 
 const config = {
     mysql: MYSQL,
-    cloudinary: CLOUDINARY,
 };
 
 export default config;

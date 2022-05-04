@@ -17,7 +17,6 @@ config();
 // server initialization
 const app: Express = express();
 
-
 // set view engine
 import { setViewEngine } from './start/ejsConfig';
 setViewEngine(app);

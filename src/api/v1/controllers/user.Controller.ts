@@ -26,6 +26,9 @@ class UserController {
 
 		const pass = await userService.getPassword(email);
 		const ret = bcrypt.compareSync(password, pass.Password);
+
+		console.log(ret);
+
 		if (ret) {
 			const data = await userService.getUserByEmail(email);
 			const accessToken = jwt.sign({ ...data }, process.env.ACCESS_TOKEN_SECRET as string, {
@@ -38,19 +41,24 @@ class UserController {
 		}
 	});
 
+	getInfo = asyncMiddleware(async (req: Request, res: Response): Promise<void> => {
+		const data = await userService.getUserByEmail(res.locals.email);
+
+		res.status(200).json({ data });
+	});
+
 	//--------------------------------------------POST-----------------------------------------
 	register = asyncMiddleware(async (req: Request, res: Response): Promise<void> => {
 		const query = req.query;
 		const email = String(query.email);
 		const pass = String(query.pass) || '';
-		const Path = process.env.PATH_API;
+		const name = String(query.name) || '';
 		const passCover = bcrypt.hashSync(pass, Number(process.env.ROUNDS));
 
 		const user = {
 			Email: email,
 			Password: passCover,
-			Active: 1,
-			TypeOfUser: 0,
+			Name: name,
 		};
 
 		const { data, message, status } = await userService.registerUser(user);

@@ -10,7 +10,7 @@ export function startMiddleware(app: Express): void {
 	app.use(express.json({ limit: '50mb' }));
 	app.use(express.urlencoded({ limit: '50mb', extended: true }));
 	app.use(morgan('combined')); // check api
-	app.use(cors()); // open for all cors
+	// app.use(cors()); // open for all cors
 	app.use(helmet()); // secure http headers
 
 	// get the last value if have the same key

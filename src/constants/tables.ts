@@ -1,1 +1,1 @@
-export const TBL_USER: string = 'user';
+export const TBL_USER: string = 'users';

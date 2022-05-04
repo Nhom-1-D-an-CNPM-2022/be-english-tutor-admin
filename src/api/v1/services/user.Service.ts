@@ -18,13 +18,13 @@ class UserService {
 
 	getPassword = async (Email: string) => {
 		try {
-			const user = await userModel.getPassword(Email);
-
-			if (user === null) {
+			const password = await userModel.getPassword(Email);
+			
+			if (password === null) {
 				return '';
 			}
 
-			return user;
+			return password;
 		} catch (error: any) {
 			throw new Error(error.messages);
 		}
@@ -70,7 +70,7 @@ class UserService {
 		}
 	};
 
-	//--------------------------------------------DELETE----------------------------------------
+	//--------------------------------------------DELETE------------------------------------password
 }
 
 export const userService = new UserService();
