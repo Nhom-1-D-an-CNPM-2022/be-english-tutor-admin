@@ -21,26 +21,25 @@ class UserController {
 	//-----------------------------------GET----------------------------------
 	login = asyncMiddleware(async (req: Request, res: Response): Promise<void> => {
 		const query = req.query;
-		const email = String(query.email);
-		const password = String(query.pass);
 
-		console.log(email, password);
+		if (query.email && query.password) {
+			const email = String(query.email);
+			const password = String(query.password);
+			const pass = await userService.getPassword(email);
+			const ret = bcrypt.compareSync(password, pass.Password);
 
-		const pass = await userService.getPassword(email);
-		const ret = bcrypt.compareSync(password, pass.Password);
+			if (ret) {
+				const data = await userService.getUserByEmail(email);
+				const accessToken = jwt.sign({ ...data }, process.env.ACCESS_TOKEN_SECRET as string, {
+					expiresIn: process.env.TIMERESET,
+				});
 
-		console.log(ret);
-
-		if (ret) {
-			const data = await userService.getUserByEmail(email);
-			const accessToken = jwt.sign({ ...data }, process.env.ACCESS_TOKEN_SECRET as string, {
-				expiresIn: process.env.TIMERESET,
-			});
-
-			res.json({ data: accessToken, message: 'Login success' });
-		} else {
-			res.json({ data: false, message: 'Login failed' });
+				res.json({ data: accessToken, message: 'Login success' });
+				return;
+			}
 		}
+
+		res.json({ data: false, message: 'Login failed' });
 	});
 
 	getInfo = asyncMiddleware(async (req: Request, res: Response): Promise<void> => {
@@ -52,20 +51,25 @@ class UserController {
 	//--------------------------------------------POST-----------------------------------------
 	register = asyncMiddleware(async (req: Request, res: Response): Promise<void> => {
 		const query = req.query;
-		const email = String(query.email);
-		const pass = String(query.pass) || '';
-		const name = String(query.name) || '';
-		const passCover = bcrypt.hashSync(pass, Number(process.env.ROUNDS));
 
-		const user = {
-			Email: email,
-			Password: passCover,
-			Name: name,
-		};
+		if (query.email && query.password && query.name) {
+			const email = String(query.email);
+			const password = String(query.password);
+			const name = String(query.name);
+			const passCover = bcrypt.hashSync(password as string, Number(process.env.ROUNDS));
 
-		const { data, message, status } = await userService.registerUser(user);
+			const user = {
+				Email: email,
+				Password: passCover,
+				Name: name,
+			};
 
-		res.status(status).json({ data, message });
+			const { data, message, status } = await userService.registerUser(user);
+
+			res.status(status).json({ data: true, message });
+		} else {
+			res.json({ data: false, message: 'Register Failed' });
+		}
 	});
 
 	//--------------------------------------------PATCH------------------------------------------

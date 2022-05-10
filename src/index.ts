@@ -17,6 +17,10 @@ config();
 // server initialization
 const app: Express = express();
 
+// cors
+var cors = require('cors');
+app.use(cors());
+
 // set view engine
 import { setViewEngine } from './start/ejsConfig';
 setViewEngine(app);
