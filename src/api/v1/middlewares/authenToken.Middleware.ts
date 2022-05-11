@@ -7,8 +7,8 @@ dotenv.config();
 
 export function authenTokenMiddleware(req: Request, res: Response, next: NextFunction): void {
 	try {
-		let token: string;
-		token = req.query.jwt || req.body.jwt;
+		const authHeader = req.header('Authorization');
+		const token = authHeader && authHeader.split(' ')[1];
 
 		if (!token || typeof token == undefined) {
 			res.status(200).json({ data: false, message: 'JWT wrong' });
@@ -21,8 +21,9 @@ export function authenTokenMiddleware(req: Request, res: Response, next: NextFun
 				return;
 			}
 
+
 			res.locals.email = data.Email;
-			res.locals.idUser = data.IDUser; 
+			res.locals.idUser = data.IDUser;
 			res.locals.data = data;
 
 			next();
