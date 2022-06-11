@@ -10,8 +10,8 @@ to the directory containing your configuration files.
 It can also be set from node, before loading Node-config: 
 */
 import path from 'path';
-process.env['NODE_CONFIG_DIR'] = path.join(__dirname, './config');
 
+process.env['NODE_CONFIG_DIR'] = path.join(__dirname, './config');
 // get process.env
 config();
 // server initialization
@@ -39,6 +39,7 @@ app.use(unexpectedError);
 app.use(express.static(path.join(__dirname, 'assets')));
 
 // listen on port: default port = 5000
+
 const PORT: number = parseInt(process.env.PORT as string, 10) || 5000;
 app.listen(PORT, (): void => {
 	console.log(`http://localhost:${PORT}`);

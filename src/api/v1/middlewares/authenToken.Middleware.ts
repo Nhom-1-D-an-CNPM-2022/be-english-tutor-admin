@@ -11,20 +11,20 @@ export function authenTokenMiddleware(req: Request, res: Response, next: NextFun
 		const token = authHeader && authHeader.split(' ')[1];
 
 		if (!token || typeof token == undefined) {
-			res.status(200).json({ data: false, message: 'JWT wrong' });
+			res.status(401).json({ data: false, message: 'JWT wrong' });
 			return;
 		}
 
 		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err: any, data: any) => {
 			if (err) {
-				res.status(200).json({ data: false, message: 'JWT wrong' });
+				res.status(401).json({ data: false, message: 'JWT wrong' });
 				return;
 			}
-
 
 			res.locals.email = data.Email;
 			res.locals.idUser = data.IDUser;
 			res.locals.data = data;
+			res.locals.token = token;
 
 			next();
 		});
