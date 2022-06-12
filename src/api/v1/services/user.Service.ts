@@ -1,75 +1,48 @@
-import { userModel } from '../models/user.model';
+import basicAxios from '../utils/axios/basicAxios.Util';
 
 class UserService {
 	//--------------------------------------------GET------------------------------------------
-	getUserByEmail = async (Email: string) => {
+	remoteGetAllUsers = async (token: string, number: number, page: number) => {
 		try {
-			const user = await userModel.getUserByEmail(Email);
-
-			if (user === null) {
-				return null;
-			}
-
-			return user;
+			const response = await basicAxios.get('users/get-all', {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				params: {
+					number,
+					page,
+				},
+			});
+			return response.data;
 		} catch (error: any) {
-			throw new Error(error.messages);
+			throw new Error(error.message);
 		}
 	};
-
-	getPassword = async (Email: string) => {
-		try {
-			const password = await userModel.getPassword(Email);
-			
-			if (password === null) {
-				return '';
-			}
-
-			return password;
-		} catch (error: any) {
-			throw new Error(error.messages);
-		}
-	};
-
 	//--------------------------------------------POST-----------------------------------------
-	registerUser = async (User: any) => {
-		try {
-			const user = await userModel.getUserByEmail(User.Email);
+	//--------------------------------------------PUT-----------------------------------------
+	remoteUpdateUserAccount = async (token: string, userId: string, dataUpdate: Object) => {
+		const data = {
+			_id: userId,
+			dataUpdate: dataUpdate,
+		};
 
-			if (user) {
-				return {
-					data: false,
-					message: 'Account already exists',
-					status: 200,
-				};
+		try {
+			const response = await basicAxios.put('users/update-account', data, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+
+			if (response.status === 200) {
+				return 'Success';
+			} else {
+				return 'Failure';
 			}
-
-			userModel.registerUser(User);
-
-			return {
-				data: true,
-				message: 'Register User Success',
-				status: 200,
-			};
 		} catch (error: any) {
-			throw new Error(error.messages);
+			throw new Error(error.message);
 		}
 	};
-
 	//--------------------------------------------PATCH------------------------------------------
-	updateUser = (User: Object, IDUser: Object) => {
-		try {
-			userModel.updateUser(User, IDUser);
-
-			return {
-				data: true,
-				message: 'Edit successfully',
-				status: 200,
-			};
-		} catch (error: any) {
-			throw new Error(error.messages);
-		}
-	};
-
 	//--------------------------------------------DELETE------------------------------------password
 }
 

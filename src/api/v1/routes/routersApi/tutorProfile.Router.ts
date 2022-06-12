@@ -11,6 +11,7 @@ import { tutorProfileController } from './../../controllers/tutorProfile.Control
 //-------------------------------------------- api/user/... -------------------------------
 
 //--------------------------------------------GET------------------------------------------
+tutorProfileRouter.get('/', authenTokenMiddleware, tutorProfileController.getAllReviewedProfiles);
 tutorProfileRouter.get('/:id', authenTokenMiddleware, tutorProfileController.getProfile);
 
 //--------------------------------------------POST-----------------------------------------

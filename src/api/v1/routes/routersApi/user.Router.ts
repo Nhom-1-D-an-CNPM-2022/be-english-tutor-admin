@@ -6,18 +6,15 @@ const userRouter = Router();
 import { authenTokenMiddleware } from '../../middlewares/authenToken.Middleware';
 
 // Controller
-import { userController } from './../../controllers/user.Controller';
+import { userController } from '../../controllers/user.Controller';
 
 //-------------------------------------------- api/user/... -------------------------------
 
 //--------------------------------------------GET------------------------------------------
-userRouter.get('/login', userController.login);
-userRouter.get('/register', userController.register);
-userRouter.get('/get-info', authenTokenMiddleware, userController.getInfo);
-
-
+userRouter.get('/', authenTokenMiddleware, userController.getAllUsers);
 //--------------------------------------------POST-----------------------------------------
-
+//--------------------------------------------PUTT-----------------------------------------
+userRouter.put('/account/update/:id', authenTokenMiddleware, userController.updateUserAccount);
 //--------------------------------------------PATCH------------------------------------------
 
 //--------------------------------------------DELETE----------------------------------------

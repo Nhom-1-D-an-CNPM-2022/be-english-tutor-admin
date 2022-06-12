@@ -2,7 +2,24 @@ import basicAxios from '../utils/axios/basicAxios.Util';
 
 class TutorProfileService {
 	//--------------------------------------------GET------------------------------------------
-	remoteGetTutorProfileById = async (id: string) => {
+	remoteGetAllReviewedProfiles = async (token: string, number: number, page: number) => {
+		try {
+			const response = await basicAxios.get('tutors/get-reviewed-profiles', {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				params: {
+					number,
+					page,
+				},
+			});
+			return response.data;
+		} catch (error: any) {
+			throw new Error(error.message);
+		}
+	};
+
+	remoteGetProfileById = async (id: string) => {
 		try {
 			const response = await basicAxios.get(`tutors/profile/${id}`);
 			return response.data;

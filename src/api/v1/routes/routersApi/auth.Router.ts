@@ -1,22 +1,24 @@
 // 3rd dependencies
 import { Router, Request, Response } from 'express';
-const accountRouter = Router();
+const authRouter = Router();
 
 // Middleware
 import { authenTokenMiddleware } from '../../middlewares/authenToken.Middleware';
 
 // Controller
-import { accountController } from '../../controllers/account.Controller';
+import { authController } from './../../controllers/auth.Controller';
 
 //-------------------------------------------- api/user/... -------------------------------
 
 //--------------------------------------------GET------------------------------------------
+authRouter.get('/login', authController.login);
+authRouter.get('/register', authController.register);
+authRouter.get('/get-info', authenTokenMiddleware, authController.getInfo);
 
 //--------------------------------------------POST-----------------------------------------
 
 //--------------------------------------------PATCH------------------------------------------
-accountRouter.patch('/update', accountController.updateAccount);
 
 //--------------------------------------------DELETE----------------------------------------
 
-export default accountRouter;
+export default authRouter;
