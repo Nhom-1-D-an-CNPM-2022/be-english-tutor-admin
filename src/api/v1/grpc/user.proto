@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package user;
+
+service User {
+  rpc UpdateAccount (NewAccountValue) returns (Message){}
+}
+
+message NewAccountValue{
+  string userId = 1;
+  bool isActive = 2;
+}
+
+message Message {
+  string message = 1;
+}
+
