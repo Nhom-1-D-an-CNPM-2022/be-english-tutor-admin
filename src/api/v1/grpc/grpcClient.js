@@ -15,11 +15,10 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 });
 
 const userProto = grpc.loadPackageDefinition(packageDefinition).user;
-const client = new userProto.User('localhost:50051', grpc.credentials.createInsecure());
+const client = new userProto.User('localhost:8081', grpc.credentials.createInsecure());
 
 class ClientGrpc {
 	updateAccount = (userId, isActive) => {
-		console.log(userId, isActive);
 		client.updateAccount({ userId, isActive }, (err, res) => {
 			if (err) {
 				return 'Failure';
