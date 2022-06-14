@@ -33,7 +33,7 @@ class UserController {
 			const body = req.body;
 
 			if (body._id && body.dataUpdate) {
-				const result = await userService.remoteUpdateUserAccount(
+				const result = await userService.remoteUpdateUserAccountGrpc(
 					res.locals.token,
 					body._id,
 					body.dataUpdate
